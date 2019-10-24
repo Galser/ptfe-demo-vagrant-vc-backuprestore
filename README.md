@@ -17,7 +17,7 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 This is going to consist of two parts [Prepate PTFE] and [Make Snapshot Operations] with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo. 
 
-## Prepate PTFE
+## Prepare PTFE
 - Clone this repo (use the tools of your choice)
 - Prepare SSL certificates (or reuse existing) - key, certificate and bindle - all in PEM format
 - Run the VM : `vagrant up`
@@ -29,29 +29,35 @@ This is going to consist of two parts [Prepate PTFE] and [Make Snapshot Operatio
     - use "Online" type of installation
     - At the [settings screen](https://ptfe-vagrant.guselietov.com:8800/settings) choose **"Installation Type"** - Demo
     - at the same screen - paste your CA bundle if it is required with your type of SSL certificate
+    - press save and finish the installation, enter at the proper screen **password for securing Admin console - write it down**
     - open PTFE at the end and create new admin user
+- Now you are logged-in , create organization and workspace in it, for the purpose of the demo, we have organization "superacme" and workspace "playground" : 
+    
+    ![Org and workspace](screenshots/4_org_and_workspace.png)
+    
+    > Names does not matter, but we are going to see that everything is restored from backup by checking that proper organization and workspace is in place later.
 
 When you are logged in new PTFE installation. it concludes installation, now let's work with snapshots.
 
 ## Working with snapshots. Backup-Restore procedures.
 
 
-## Creating Snapshot
+### Creating Snapshot
 - Go to the AdminDashboard of PTFR : https://ptfe-vagrant.guselietov.com:8800/dashboard, at the right side of it you are going to see section with the text "Snapshots Enabled" and a button **[Start Snapshot]**, press it  :
 
-    ![Start snapshot]](screenshots/1_screenshots_enabled.png)
+    ![Enabled snapshots](screenshots/1_screenshots_enabled.png)
 
 - After you have pressed the button, right section is going to display progress through the series of status messages : 
 
-    ![Start snapshot]](screenshots/2_snapshot_progress.png)
+    ![Snap progress](screenshots/2_snapshot_progress.png)
 
-    ![Start snapshot]](screenshots/2_2_snapshot_progress.png)
+    ![More snapshot progress](screenshots/2_2_snapshot_progress.png)
 
 - When snapshot is done, teh section is going to change , to indicate the date and time of last snapshot, and bearing 2 buttons - **[Start Snapshot]** and **[History]** : 
 
-    ![Start snapshot]](screenshots/3_snapshot_done.png)
+    ![Done snapshot](screenshots/3_snapshot_done.png)
 
-## Imitating full application disaster
+### Imitating full application disaster
 
 In order to demonstrate recovery from a snapshot we are going to simulate full application disaster - wipe it out completely (preserving snapshot) and then restoring with state .
 
@@ -106,10 +112,103 @@ execute it (**still UNDER root privileges**):
     ``` 
 - Let's check that we indeed "have killed" our application by accessing the Admin Dashboard at the URL : https://ptfe-vagrant.guselietov.com:8800/dashboard, and we see : 
 
-    ![Start snapshot]](screenshots/5_ptfe_is_dead.png)
+    ![PTFE Dead](screenshots/5_ptfe_is_dead.png)
 
 
-## Restore from a snapshot
+### Restore from a snapshot
+
+- If you are still in SSH session with your VM  ,reuse it, otherwise please connect once more by executing : 
+    ```
+    vagrant ssh
+    ```
+- Become root :
+    ```
+    sudo su -
+    ```
+- The earlier run of our script [/home/vagrant/delete_all.sh](delete_all.sh) actually preserved the content of `/var/lib/replicated/snapshots/`
+and also synced it to `/root/snap`. Let's check that both locatins contains something and not empty.
+    - Execute : 
+    ```bash
+    du -h /var/lib/replicated/snapshots/
+
+    96M	/var/lib/replicated/snapshots/sha256
+    48K	/var/lib/replicated/snapshots/files
+    4.0K	/var/lib/replicated/snapshots/tmp
+    96M	/var/lib/replicated/snapshots/
+    ```
+    okay we hva 96M of saved data
+    and the same for `/root/snap` :
+    ```bash
+    du -h /root/snap/                   
+    96M	/root/snap/sha256
+    48K	/root/snap/files
+    4.0K	/root/snap/tmp
+    96M	/root/snap/    
+    ```
+- Log-out from root account by executing : 
+    ```
+    exit
+    ``` 
+    ( or pressing [Ctrl]+[D} simultaneously ])
+- Start installation of PTFE again (remember? wqe wiped out everything) by executing : 
+    ```bash
+    curl https://install.terraform.io/ptfe/stable | sudo bash
+    ```
+-Repeat everything for the terminal portion of the install
+    - select and use IP-address `192.168.56.22` for the service), no proxy
+- Go the Web-portion of PTFE install, open in your browser : http://192.168.56.22:8800 
+    - Press **[Continue to Setup]** and confirm security exception
+    - at the screen "HTTPS for admin console" - supply proper SSL keys (**SAME as first time!**), certificate and bundle, use the name *"ptfe-vagrant.guselietov.com"* for the host (again - SAME name)
+    - Press **[Upload & Continue]**
+- Now, at the screen asking for the license, going to be the link : **[Restore from a snapshot]** : 
+    
+    ![License](screenshots/6_license_question.png)
+
+    Click it
+
+- At the nnext screen you going to see : Restore from snapshot with the message below -  Np snapshot found
+
+    ![No snapshot](screenshots/7_no_screenshot_found.png)
+
+    Press the button **[Browse snapshots]**, and you going to see after some time : 
+
+    ![List of snapshots](screenshots/8_screenshots_list.png]
+
+- Choose the latest snapshot in the list and press the small button [restore] next to it, after that you will see a series of the screens with progress status  :
+
+    ![Restoring snapshot](screenshots/9_restoring.png)
+
+    And at the end - Admin Console unlock: 
+
+    ![Unlock](screenshots/10_unlock_console.png)
+
+- Unlock the console by entering the passwod from the very first installation, that we emphasized to wrote down, and you will seee again screen with "Preflight Checks", press **[Continue]** button
+
+-  Now you will see next screen - *Restore Cluster*, press the button **Restore** :
+
+    ![Restore cluster](screenshots/11_restore_cluster.png)
+
+- After the process is finished, you going to see "Cluster" state page from wher you cna direclty go to the Dashboard of Admin Console. and observe the progress at the left section : 
+
+    ![Restore progress](screenshots/12_restart_after_restore.png)
+
+    and it you look at the greater picture : 
+
+    ![Restore progress 2](screenshots/12_wide_restore_status.png)
+
+    > Note : You can spot that the right section right now have only **Snapshots Enabled** message, and nothing more.
+
+    Wait until it finishes.
+
+- Open PTFE Dashboard ( not Admin Console!), at workspaces for our cartoonish organization :  https://ptfe-vagrant.guselietov.com/app/superacme/workspaces :
+
+    ![organization and workspace in place](screenshots/14_org_and_work_still_here.png)
+
+    As you can see from the screenshot - everything is in place.
+
+This concludes the instruction section. now we have successfully performed the restore from a snapshot and resurrected our PTFE. Thank you.
+
+
 
 # Technologies
 
@@ -123,8 +222,6 @@ execute it (**still UNDER root privileges**):
 
 # TODO
 
-- [ ] - make restore
-- [ ] - use snapshot
 - [ ] - update README
 
 # DONE
@@ -133,3 +230,5 @@ execute it (**still UNDER root privileges**):
 - [x] - install PTFE
 - [x] - configure snapshots
 - [x] - make backup
+- [x] - make restore
+- [x] - use snapshot
