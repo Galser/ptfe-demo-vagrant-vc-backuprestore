@@ -15,6 +15,26 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 # Run log
 
+This is going to consist of two parts [Prepate PTFE] and [Make Snapshot Operations] with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo. 
+
+## Prepate PTFE
+- Clone this repo (use the tools of your choice)
+- Prepare SSL certificates (or reuse existing) - key, certificate and bindle - all in PEM format
+- Run the VM : `vagrant up`
+- Connect to VM `vagrnat ssh` 
+- Start the PTFE install : `curl https://install.terraform.io/ptfe/stable | sudo bash`
+    go through it (use IP-address `192.168.56.22` for the service), no proxy
+- Finish the Web-portion of PTFE install start from : http://192.168.56.22:8800
+    - Supply proper SSL keys, certificate and bundle, use the name *"ptfe-vagrant.guselietov.com"* for the host
+    - use "Online" type of installation
+    - At the [settings screen](https://ptfe-vagrant.guselietov.com:8800/settings) choose **"Installation Type"** - Demo
+    - at the same screen - paste your CA bundle if it is required with your type of SSL certificate
+    - open PTFE at the end and create new admin user
+
+When you are logged in new PTFE installation. it concludes installation,. now let's work with snapshots
+
+
+
 # Technologies
 
 1. **To download the content of this repository** you will need **git command-line tools**(recommended) or **Git UI Client**. To install official command-line Git tools please [find here instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for various operating systems. 
@@ -27,9 +47,6 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 # TODO
 
-- [ ] - create Vagrant machine
-- [ ] - re-use certificate and DNS settings from repo : https://github.com/Galser/ptfe-demo-validcert
-- [ ] - install PTFE
 - [ ] - configure snapshots
 - [ ] - make backup
 - [ ] - make restore
@@ -37,3 +54,6 @@ To learn more about the mentioned above tools and technologies -  please check s
 - [ ] - update README
 
 # DONE
+- [x] - create Vagrant machine
+- [x] - re-use certificate and DNS settings from repo : https://github.com/Galser/ptfe-demo-validcert
+- [x] - install PTFE
