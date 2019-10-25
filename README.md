@@ -120,7 +120,7 @@ execute it (**still under root privileges**):
 
 ### Restore from a snapshot
 
-- If you are still in SSH session with your VM  ,reuse it, otherwise please connect once more by executing : 
+- If you are still in SSH session with your VM,reuse it, otherwise please connect once more by executing : 
     ```
     vagrant ssh
     ```
@@ -140,9 +140,10 @@ and also have synced it to `/root/snap`. Let's check that both locations contain
     96M    /var/lib/replicated/snapshots/
     ```
     okay we have 96M of saved data
-    and the same for `/root/snap` :
+    - and the same for `/root/snap` :
     ```bash
     du -h /root/snap/                   
+    
     96M    /root/snap/sha256
     48K    /root/snap/files
     4.0K    /root/snap/tmp
@@ -153,7 +154,7 @@ and also have synced it to `/root/snap`. Let's check that both locations contain
     exit
     ``` 
     ( or pressing [Ctrl]+[D] simultaneously )
-- Start installation of PTFE again (remember? wqe wiped out everything) by executing : 
+- Start installation of PTFE again (remember? we had wiped out everything) by executing : 
     ```bash
     curl https://install.terraform.io/ptfe/stable | sudo bash
     ```
@@ -163,7 +164,7 @@ and also have synced it to `/root/snap`. Let's check that both locations contain
     - Press **[Continue to Setup]** and confirm security exception
     - at the screen *"HTTPS for admin console"* - supply proper SSL keys (**SAME as first time!**), certificate and bundle, use the name *"ptfe-vagrant.guselietov.com"* for the host (again - SAME name)
     - Press **[Upload & Continue]**
-- Now, at the screen asking for the license, should be the link below : **[Restore from a snapshot]** : 
+- Now, at the screen asking for the license, stop, there should be the link below : **[Restore from a snapshot]** : 
     
     ![License](screenshots/6_license_question.png)
 
