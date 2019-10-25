@@ -15,11 +15,12 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 # Run log
 
-How-to is going to consist of two parts [Prepate PTFE](#prepare_ptfe) and [Working with snapshots](#working_with_snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo https://github.com/Galser/ptfe-demo-validcert . 
+How-to is going to consist of two parts [Prepate PTFE](#prepare-ptfe) and [Working with snapshots](#working-with-snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo https://github.com/Galser/ptfe-demo-validcert . 
 
 ## Prepare PTFE
-- Clone this repo (use the tools of your choice)
-- Prepare SSL certificates (or reuse existing) - key, certificate, and bundle - all in PEM format
+- Clone this repo (*use the tools of your choice*)
+- Prepare SSL certificates (*or reuse existing corresponding to the DNS record*) - key, certificate, and bundle - all in PEM format
+- Double-check that DNS A-record for your choosen name ( `ptfe-vagrant.guselietov.com` in example ) points to teh correct IP-address ( `192.168.56.22` in example ).
 - From insdie folder with cloned repo - start the VM: `vagrant up`
 - Connect to VM `vagrant ssh` 
 - Start the PTFE install: `curl https://install.terraform.io/ptfe/stable | sudo bash`
@@ -28,18 +29,18 @@ How-to is going to consist of two parts [Prepate PTFE](#prepare_ptfe) and [Worki
     - Accept security exception to proceed to second screen
     - Supply proper SSL keys, certificate, and bundle, use the name *"ptfe-vagrant.guselietov.com"* for the host
     - Upload license
-    - use **"Online"** type of installation
+    - Use **"Online"** type of installation
     - At the [settings screen](https://ptfe-vagrant.guselietov.com:8800/settings) choose **"Installation Type"** - Demo
-    - at the same screen - paste your CA bundle if it is required with your type of SSL certificate
-    - press **[save]** button and finish the installation, enter at the proper screen **password for securing Admin console - write it down**
-    - open PTFE at the end and create a new admin user
+    - At the same screen - paste your CA bundle if it is required with your type of SSL certificate
+    - Press **[save]** button and finish the installation, enter at the proper screen **password for securing Admin console - write it down**
+    - Open PTFE at the end and create a new admin user
 - Now you are logged-in, create organization and workspace in it, for the demo, we have organization *"superacme"* and workspace *"playground"* : 
     
     ![Org and workspace](screenshots/4_org_and_workspace.png)
     
-    > Names does not matter, but we are going to see that everything is restored from backup by checking that proper organization and workspace is in place later.
+    > Names do not matter, but we are going to see that everything is restored from backup by checking that proper organization and workspace is in place, later.
 
-When you are logged in a new PTFE installation. it concludes installation, now let's work with snapshots.
+When you *are logged in* a new PTFE installation with organization and workspace -  installation is done. Now let's work with snapshots.
 
 ## Working with snapshots
 
@@ -223,7 +224,6 @@ This concludes the instruction section. now we have successfully performed the r
 
 
 # TODO
-
 
 
 # DONE
