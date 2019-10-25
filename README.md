@@ -20,8 +20,8 @@ How-to is going to consist of two parts [Prepate PTFE](#prepare-ptfe) and [Worki
 ## Prepare PTFE
 - Clone this repo (*use the tools of your choice*)
 - Prepare SSL certificates (*or reuse existing corresponding to the DNS record*) - key, certificate, and bundle - all in PEM format
-- Double-check that DNS A-record for your choosen name ( `ptfe-vagrant.guselietov.com` in example ) points to teh correct IP-address ( `192.168.56.22` in example ).
-- From insdie folder with cloned repo - start the VM: `vagrant up`
+- Double-check that DNS A-record for your choosen name ( `ptfe-vagrant.guselietov.com` in example ) points to the correct IP-address ( `192.168.56.22` in example ).
+- From insdie folder with cloned repo start the VM: `vagrant up`
 - Connect to VM `vagrant ssh` 
 - Start the PTFE install: `curl https://install.terraform.io/ptfe/stable | sudo bash`
     go through it (use IP-address `192.168.56.22` for the service), no proxy
