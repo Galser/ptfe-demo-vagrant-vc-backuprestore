@@ -15,7 +15,7 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 # Run log
 
-How-to is going to consist of two parts [Prepate PTFE](##prepare_ptfe) and [Working with snapshot](##working_with_snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo https://github.com/Galser/ptfe-demo-validcert . 
+How-to is going to consist of two parts [Prepate PTFE](#prepare_ptfe) and [Working with snapshots](#working_with_snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo https://github.com/Galser/ptfe-demo-validcert . 
 
 ## Prepare PTFE
 - Clone this repo (use the tools of your choice)
@@ -24,16 +24,16 @@ How-to is going to consist of two parts [Prepate PTFE](##prepare_ptfe) and [Work
 - Connect to VM `vagrant ssh` 
 - Start the PTFE install: `curl https://install.terraform.io/ptfe/stable | sudo bash`
     go through it (use IP-address `192.168.56.22` for the service), no proxy
-- Finish the Web-portion of PTFE install start from http://192.168.56.22:8800
+- Finish the Web-portion of PTFE install. Point your browser to : http://192.168.56.22:8800
     - Accept security exception to proceed to second screen
     - Supply proper SSL keys, certificate, and bundle, use the name *"ptfe-vagrant.guselietov.com"* for the host
     - Upload license
     - use **"Online"** type of installation
     - At the [settings screen](https://ptfe-vagrant.guselietov.com:8800/settings) choose **"Installation Type"** - Demo
     - at the same screen - paste your CA bundle if it is required with your type of SSL certificate
-    - press save and finish the installation, enter at the proper screen **password for securing Admin console - write it down**
+    - press **[save]** button and finish the installation, enter at the proper screen **password for securing Admin console - write it down**
     - open PTFE at the end and create a new admin user
-- Now you are logged-in, create organization and workspace in it, for the demo, we have organization "superacme" and workspace "playground" : 
+- Now you are logged-in, create organization and workspace in it, for the demo, we have organization *"superacme"* and workspace *"playground"* : 
     
     ![Org and workspace](screenshots/4_org_and_workspace.png)
     
