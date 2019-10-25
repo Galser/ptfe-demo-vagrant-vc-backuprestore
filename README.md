@@ -15,12 +15,12 @@ To learn more about the mentioned above tools and technologies -  please check s
 
 # Run log
 
-This is going to consist of two parts [Prepate PTFE](##prepare_ptfe) and [Working with snapshot](##working_with_snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo. 
+How-to is going to consist of two parts [Prepate PTFE](##prepare_ptfe) and [Working with snapshot](##working_with_snapshots) with the first one being presented in condensed form, and you always can refer to the ["How-To section"](https://github.com/Galser/ptfe-demo-validcert#how-to) of the above-mentioned base repo https://github.com/Galser/ptfe-demo-validcert . 
 
 ## Prepare PTFE
 - Clone this repo (use the tools of your choice)
 - Prepare SSL certificates (or reuse existing) - key, certificate, and bundle - all in PEM format
-- Run the VM: `vagrant up`
+- From insdie folder with cloned repo - start the VM: `vagrant up`
 - Connect to VM `vagrant ssh` 
 - Start the PTFE install: `curl https://install.terraform.io/ptfe/stable | sudo bash`
     go through it (use IP-address `192.168.56.22` for the service), no proxy
